@@ -1,8 +1,27 @@
+Description of project:
+
+	This project was developed as my Capstone project for WGU.
+	
+	This program works with the Capstone.db database file and uses data retrieved from
+	https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks. 
+	
+	This program allows the user to sign up with a username and password and then log in to the program. 
+	Once logged in, the user can create a playlist based on a song. The program will generate a set 
+	amount of songs using song variables and weights to find songs with a similar "score" to the song 
+	the playlist was created from. Once the playlist is created the user can like songs, dislike songs, and 
+	unlike/undislike songs which will update the algorithm that generates the songs in the playlist. The hope is
+	that by updating the algorithm, a playlist the user likes is generated. The program also keeps track of some of
+	the data and allows the user to view charts and graphs using that data. The user can also delete playlists and connect
+	to Spotify to play the songs from their playlists.
+
 Note on Data:
 
 	This program used SQLite and CSV files to import and manage data. If you would like to see or
 	use these files with the program I uploaded them to Google Drive at:
 	https://drive.google.com/file/d/1RehflYG5k__4t7AaQihDw9Cwdvl99neJ/view?usp=sharing
+	
+	The program will read these files if the .csv files and the DBMS folder are placed alongside the
+	.py files.
 
 Database Information:
 
