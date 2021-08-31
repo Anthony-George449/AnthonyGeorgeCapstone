@@ -1,0 +1,223 @@
+# These were just some useful SQL commands I used while creating and working with the database.
+
+# Base query used to select songs with a similarity score closest to the base song
+WITH SCOREDSONGS AS(
+	SELECT song_id, name, artists, artists_id
+	((100/100*popularity)+
+	(100/220*tempo)+
+	(100*acousticness)+
+	(100*danceability)+
+	(100*energy)+
+	(100*instrumentalness)+
+	(100*liveness)+
+	(100/-60*loudness)+
+	(100*speechiness)+
+	(100*valence)) as score
+	FROM songs 
+	WHERE explicit = 0 or explicit = 0) 
+SELECT * 
+FROM SCOREDSONGS 
+ORDER BY Abs(score - 
+	(SELECT score 
+	FROM SCOREDSONGS 
+	WHERE song_id = '7J5prjNs67L9W7YPPzIxVl')) 
+LIMIT 100
+
+# Create table
+CREATE TABLE algorithm_variable_updates (
+    algorithm_id INTEGER,
+    like_dislike BOOLEAN,
+    popularity_score INTEGER,
+    tempo_score INTEGER,
+    acousticness_score INTEGER,
+    danceability_score INTEGER,
+    energy_score INTEGER,
+    instrumentalness_score INTEGER,
+    liveness_score INTEGER,
+    loudness_score INTEGER,
+    speechiness_score INTEGER,
+    valence_score INTEGER,
+    CONSTRAINT unique_algorithm_ratings UNIQUE (algorithm_id, like_dislike)
+    );
+
+# Create table
+CREATE TABLE algorithms (
+    algorithm_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    song_id INT,
+    user_id INT,
+    explicit BOOLEAN,
+    popularity_score FLOAT,
+    tempo_score FLOAT,
+    acousticness_score FLOAT,
+    danceability_score FLOAT,
+    energy_score FLOAT,
+    instrumentalness_score FLOAT,
+    liveness_score FLOAT,
+    loudness_score FLOAT,
+    speechiness_score FLOAT,
+    valence_score FLOAT
+    );
+
+# Create table
+CREATE TABLE song_ratings(
+    algorithm_id INTEGER,
+    song_id INTEGER,
+    rating BOOLEAN,
+    CONSTRAINT PK_Rating PRIMARY KEY (algorithm_id, song_id)
+    );
+    
+# Create table
+CREATE TABLE users (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(255) UNIQUE,
+    password VARCHAR(255)
+    );
+
+# Create table
+CREATE TABLE songs (
+	song_id VARCHAR(255) PRIMARY KEY,
+	name VARCHAR(1000),
+	artists VARCHAR(1000),
+	artists_id VARCHAR(255),
+	release_date VARCHAR(255),
+	duration_ms INT,
+	popularity DOUBLE,
+	explicit BOOLEAN,
+	mode BOOLEAN,
+	key INT,
+	time_signature INT,
+	tempo DOUBLE,
+	acousticness DOUBLE,
+	danceability DOUBLE,
+	energy DOUBLE,
+	instrumentalness DOUBLE,
+	liveness DOUBLE,
+	loudness DOUBLE,
+	speechiness DOUBLE,
+	valence DOUBLE,
+	CONSTRAINT unique_song_artists UNIQUE (name, artists)
+	);
+
+# Reset algorithm weights
+UPDATE algorithms SET
+popularity_score = 100,
+tempo_score = 100,
+acousticness_score = 100,
+danceability_score = 100,
+energy_score = 100,
+instrumentalness_score = 100,
+liveness_score = 100, 
+loudness_score = 100, 
+speechiness_score = 100, 
+valence_score = 100;
+
+# Used to see all liked songs for an algorithm and be able to compare variables
+select * from songs where song_id in 
+(select song_id from song_ratings where algorithm_id = 1 and rating = 1);
+
+# used to get similarity score
+WITH SCOREDSONGS AS(
+	SELECT song_id, name, artists, 
+	abs(popularity/100-0.6), 
+	abs(tempo/220-(169.489/220)), 
+	abs(acousticness-0.174), 
+	abs(danceability-0.392), 
+	abs(energy-0.451), 
+	abs(instrumentalness-0.0), 
+	abs(liveness-0.103), 
+	abs(loudness/-60+(7.109/-60)), 
+	abs(speechiness-0.0361), 
+	abs(valence-0.358),
+	
+	(abs(popularity/100-0.6) + 
+	abs(tempo/220-(169.489/220)) + 
+	abs(acousticness-0.174) + 
+	abs(danceability-0.392) + 
+	abs(energy-0.451) + 
+	abs(instrumentalness-0.0) +
+	abs(liveness-0.103) + 
+	abs(loudness/-60+(7.109/-60)) + 
+	abs(speechiness-0.0361) + 
+	abs(valence-0.358))
+	as similarity_score,
+	
+	((160.62207031078/100*popularity)+
+	(106.554465278887/220*tempo)+
+	(133.194781424845*acousticness)+
+	(103.510955145411*danceability)+
+	(118.394450696566*energy)+
+	(0.1*instrumentalness)+
+	(73.6523412080072*liveness)+
+	(73.1834259074787/-60*loudness)+
+	(25.7293774228036*speechiness)+
+	(103.005997693939*valence)) as score
+	FROM songs 
+	WHERE explicit = 0 or explicit = 0) 
+SELECT * 
+FROM SCOREDSONGS 
+ORDER BY Abs(score - 
+	(SELECT score 
+	FROM SCOREDSONGS 
+	WHERE song_id = '7J5prjNs67L9W7YPPzIxVl')) 
+LIMIT 100
+
+# used to get avg score of selected songs
+WITH SCOREDSONGS2 AS (
+WITH LIMITEDSONGS AS(
+WITH SCOREDSONGS AS(
+	SELECT song_id, name, artists, 
+	
+	(abs(popularity/100-0.6) + 
+	abs(tempo/220-(169.489/220)) + 
+	abs(acousticness-0.174) + 
+	abs(danceability-0.392) + 
+	abs(energy-0.451) + 
+	abs(instrumentalness-0.0) +
+	abs(liveness-0.103) + 
+	abs(loudness/-60+(7.109/-60)) + 
+	abs(speechiness-0.0361) + 
+	abs(valence-0.358))
+	as similarity_score,
+
+	((160.62207031078/100*popularity)+
+	(106.554465278887/220*tempo)+
+	(133.194781424845*acousticness)+
+	(103.510955145411*danceability)+
+	(118.394450696566*energy)+
+	(0.1*instrumentalness)+
+	(73.6523412080072*liveness)+
+	(73.1834259074787/-60*loudness)+
+	(25.7293774228036*speechiness)+
+	(103.005997693939*valence)) as score
+	FROM songs 
+	WHERE song_id in ('7J5prjNs67L9W7YPPzIxVl',
+	'5wQnmLuC1W7ATsArWACrgW',
+	'4RAOI1etsgbh5NP3T5R8rN',
+	'2kMjk14RmYyYhhSbipoa9U',
+	'5ZqNz8GXWpkb95f7aVxTA0',
+	'4q4hefWcEkJiJtRvuJealM',
+	'0z9UVN8VBHJ9HdfYsOuuNf',
+	'1JJOL5EhixrtlbXDWKS0yj',
+	'7ddJJFmXZ3984IbVEKinp5',
+	'27iZxQjtXo4OxoZyk91Ooq',
+	'2GGSDL4nKoTanxqHhshyYL',
+	'0kmcd9pgcrzIjMoemUvv5s',
+	'3ZffCQKLFLUvYM59XKLbVm',
+	'2d6m2F4I7wCuAKtSsdhh83',
+	'6rT0BKAbg4y35tukHcfk4N',
+	'5fVZC9GiM4e8vu99W0Xf6J',
+	'64yrDBpcdwEdNY9loyEGbX',
+	'75SixhsPWyRRmtqHeffiXr',
+	'1b7vg5T9YKR3NNqXfBYRF7',
+	'2w4EpqGasrz9qdTwocx54t')) 
+SELECT * 
+FROM SCOREDSONGS 
+ORDER BY Abs(score - 
+	(SELECT score 
+	FROM SCOREDSONGS 
+	WHERE song_id = '7J5prjNs67L9W7YPPzIxVl')) )
+SELECT * FROM LIMITEDSONGS
+ORDER BY similarity_score
+limit 20)
+SELECT AVG(score)
+FROM SCOREDSONGS2;
