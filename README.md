@@ -8,11 +8,11 @@ Description of project:
 	This program allows the user to sign up with a username and password and then log in to the program. 
 	Once logged in, the user can create a playlist based on a song. The program will generate a set 
 	amount of songs using song variables and weights to find songs with a similar "score" to the song 
-	the playlist was created from. Once the playlist is created the user can like songs, dislike songs, and 
-	unlike/undislike songs which will update the algorithm that generates the songs in the playlist. The hope is
-	that by updating the algorithm, a playlist the user likes is generated. The program also keeps track of some of
-	the data and allows the user to view charts and graphs using that data. The user can also delete playlists and connect
-	to Spotify to play the songs from their playlists.
+	the playlist was created from. Once the playlist is created the user can like songs, dislike songs, 
+	and unlike/undislike songs which will update the algorithm that generates the songs in the playlist. 
+	The hope is that by updating the algorithm, a playlist the user likes is generated. The program also 
+	keeps track of some of the data and allows the user to view charts and graphs using that data. The user 
+	can also delete playlists and connect to Spotify to play the songs from their playlists.
 
 Note on Data:
 
