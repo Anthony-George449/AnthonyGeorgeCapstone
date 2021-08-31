@@ -5,14 +5,15 @@ Description of project:
 	This program works with the Capstone.db database file and uses data retrieved from
 	https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks. 
 	
-	This program allows the user to sign up with a username and password and then log in to the program. 
-	Once logged in, the user can create a playlist based on a song. The program will generate a set 
-	amount of songs using song variables and weights to find songs with a similar "score" to the song 
-	the playlist was created from. Once the playlist is created the user can like songs, dislike songs, 
-	and unlike/undislike songs which will update the algorithm that generates the songs in the playlist. 
-	The hope is that by updating the algorithm, a playlist the user likes is generated. The program also 
-	keeps track of some of the data and allows the user to view charts and graphs using that data. The user 
-	can also delete playlists and connect to Spotify to play the songs from their playlists.
+	This program allows the user to sign up with a username and password and then log in to the 
+	program. Once logged in, the user can create a playlist based on a song. The program will 
+	generate a set amount of songs using song variables and weights to find songs with a similar 
+	"score" to the song the playlist was created from. Once the playlist is created the user can 
+	like songs, dislike songs, and unlike/undislike songs which will update the algorithm that 
+	generates the songs in the playlist. The hope is that by updating the algorithm, a playlist 
+	the user likes is generated. The program also keeps track of some of the data and allows 
+	the user to view charts and graphs using that data. The user can also delete playlists and 
+	connect to Spotify to play the songs from their playlists.
 
 Note on Data:
 
@@ -25,8 +26,8 @@ Note on Data:
 
 Database Information:
 
-	If you would like to browse the database, you can access the Capstone.db file from the link at the top 
-	of this document and use the SQL DBMS of your choice to access the data (SQLite was used in the creation of this database)
+	If you would like to browse the database, you can access the Capstone.db file from the link at 
+	the top of this document and use the SQL DBMS of your choice to access the data.
 	The tables that I used are named: 
 	'algorithms' for storing playlist information and variable weights. 
 	'algorithm_variable_updates' for storing variable counts which are used to display data in the 
@@ -79,11 +80,12 @@ How to connect this program to Spotify:
 	will open in your web browser which will ask you to give permission to this application so 
 	it can play songs through your Spotify account. 
 
-	Once you’ve authorized the application, you should get an error message saying that no active devices 
-	have been found. In order to change that and start playing your playlist, either open the Spotify 
-	desktop or mobile application or navigate to https://open.spotify.com/ and log in with the account you 
-	authorized. Once you’ve logged in start playing anything and then pause, which will make your device active. 
-	Now you can press the play on Spotify button again and the playlist will be shuffled and played via Spotify.
+	Once you’ve authorized the application, you should get an error message saying that no active 
+	devices have been found. In order to change that and start playing your playlist, either open 
+	the Spotify desktop or mobile application or navigate to https://open.spotify.com/ and log in 
+	with the account you authorized. Once you’ve logged in start playing anything and then pause, 
+	which will make your device active. Now you can press the play on Spotify button again and the 
+	playlist will be shuffled and played via Spotify.
 
 Spotify permissions requested by the program:
 
@@ -94,7 +96,8 @@ Spotify permissions requested by the program:
 		user-read-playback-state allows the program to see which device the user is using spotify 
 		from so it can connect to it.
 		user-modify-playback-state allows the program to control playback on the user's devices.
-		user-read-currently-playing allows the program to see what's currently playing on the user's device.
+		user-read-currently-playing allows the program to see what's currently playing on 
+		the user's device.
 
 How to sign out of Spotify:
 
