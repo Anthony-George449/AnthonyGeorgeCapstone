@@ -18,7 +18,7 @@ Database Information:
 	Note that this database is viewable for testing purposes only, so any changes will affect the 
 	application's data.
 
-Note on running program:
+Note on running the program:
 
 	The main screen can take a little while to open sometimes (usually happens when it's the
 	first time running the application in a while). I'm not exactly sure why this happens, but
