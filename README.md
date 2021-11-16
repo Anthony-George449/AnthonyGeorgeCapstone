@@ -1,3 +1,8 @@
+Write-up of this project:
+
+	I uploaded my write-up of this project to Google Drive at:
+	https://drive.google.com/file/d/1OyT_vbelWQ4fExvMiLwaHY0ytD06P5h_/view?usp=sharing
+
 Description of project:
 
 	This project was developed as my Capstone project for WGU.
